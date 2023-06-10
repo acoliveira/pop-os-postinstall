@@ -88,8 +88,6 @@ just_apt_update(){
 #curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | sudo bash
 #sudo nala install speedtest
 
-## notepadqq
-## stacer
 ## gnuradio
 
 PROGRAMAS_PARA_INSTALAR=(
@@ -108,11 +106,13 @@ PROGRAMAS_PARA_INSTALAR=(
   lutris
   nala
   neofetch
+  notepadqq
   ratbagd
   ripgrep
   snapd
   solaar
   speedtest
+  stacer
   steam-devices
   steam-installer
   synaptic
