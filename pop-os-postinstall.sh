@@ -15,11 +15,14 @@ set -e
 
 ##URLS
 
+URL_WINE_KEY="https://dl.winehq.org/wine-builds/winehq.key"
+URL_PPA_WINE="https://dl.winehq.org/wine-builds/ubuntu/"
 URL_4K_VIDEO_DOWNLOADER="https://dl.4kdownload.com/app/4kvideodownloader_4.24.3-1_amd64.deb?source=website"
 URL_GOOGLE_CHROME="https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
 URL_INSOMNIA="https://updates.insomnia.rest/downloads/ubuntu/latest?&app=com.insomnia.app&source=website"
 URL_INSYNC="https://cdn.insynchq.com/builds/linux/insync_3.8.6.50504-lunar_amd64.deb"
 URL_VSCODE="https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
+URL_NALA="https://gitlab.com/volian/nala/uploads/4509f695f7a531282e0d8aba71eb3134/nala_0.13.0_all.deb"
 
 ##DIRETÓRIOS E ARQUIVOS
 
@@ -47,16 +50,23 @@ apt_update(){
 
 # Internet conectando?
 testes_internet(){
-if ! ping -c 1 8.8.8.8 -q &> /dev/null; then
-  echo -e "${VERMELHO}[ERROR] - Seu computador não tem conexão com a Internet. Verifique a rede.${SEM_COR}"
-  exit 1
-else
-  echo -e "${VERDE}[INFO] - Conexão com a Internet funcionando normalmente.${SEM_COR}"
-fi
+  if ! ping -c 1 8.8.8.8 -q &> /dev/null; then
+    echo -e "${VERMELHO}[ERROR] - Seu computador não tem conexão com a Internet. Verifique a rede.${SEM_COR}"
+    exit 1
+  else
+    echo -e "${VERDE}[INFO] - Conexão com a Internet funcionando normalmente.${SEM_COR}"
+  fi
 }
 
 # ------------------------------------------------------------------------------ #
 
+
+remover_ipv6(){
+## Removendo IPV6
+  sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1
+  sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1
+  sudo sysctl -w net.ipv6.conf.lo.disable_ipv6=1
+}
 
 ## Removendo travas eventuais do apt ##
 travas_apt(){
@@ -75,10 +85,18 @@ just_apt_update(){
 
 ##DEB SOFTWARES TO INSTALL
 
+#curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | sudo bash
+#sudo nala install speedtest
+
+## notepadqq
+## stacer
+## gnuradio
+
 PROGRAMAS_PARA_INSTALAR=(
   apt-transport-https
   build-essential
   code
+  cpu-x
   curl
   folder-color
   fonts-firacode
@@ -86,12 +104,15 @@ PROGRAMAS_PARA_INSTALAR=(
   gnome-sushi
   gparted
   gufw
+  hardinfo
   lutris
+  nala
   neofetch
   ratbagd
   ripgrep
   snapd
   solaar
+  speedtest
   steam-devices
   steam-installer
   synaptic
@@ -116,6 +137,7 @@ install_debs(){
 echo -e "${VERDE}[INFO] - Baixando pacotes .deb${SEM_COR}"
 
 mkdir "$DIRETORIO_DOWNLOADS"
+wget -c "$URL_NALA"                -P "$DIRETORIO_DOWNLOADS"
 wget -c "$URL_GOOGLE_CHROME"       -P "$DIRETORIO_DOWNLOADS"
 wget -c "$URL_4K_VIDEO_DOWNLOADER" -P "$DIRETORIO_DOWNLOADS"
 wget -c "$URL_INSYNC"              -P "$DIRETORIO_DOWNLOADS"
@@ -157,6 +179,7 @@ install_flatpaks(){
   flatpak install flathub org.gnome.Boxes -y
   flatpak install flathub org.qbittorrent.qBittorrent -y
   flatpak install flathub org.telegram.desktop -y
+  flatpak install flathub com.simplenote.Simplenote -y
 }
 
 ## Instalando pacotes Snap ##
@@ -211,6 +234,7 @@ extra_config(){
 # -------------------------------------------------------------------------------- #
 # -------------------------------EXECUÇÃO----------------------------------------- #
 
+remover_ipv6
 travas_apt
 testes_internet
 travas_apt
