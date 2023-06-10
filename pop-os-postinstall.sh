@@ -15,11 +15,11 @@ set -e
 
 ##URLS
 
+URL_4K_VIDEO_DOWNLOADER="https://dl.4kdownload.com/app/4kvideodownloader_4.24.3-1_amd64.deb?source=website"
 URL_GOOGLE_CHROME="https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
-URL_4K_VIDEO_DOWNLOADER="https://dl.4kdownload.com/app/4kvideodownloader_4.20.0-1_amd64.deb?source=website"
-URL_INSYNC="https://d2t3ff60b2tol4.cloudfront.net/builds/insync_3.7.2.50318-impish_amd64.deb"
-URL_SYNOLOGY_DRIVE="https://global.download.synology.com/download/Utility/SynologyDriveClient/3.0.3-12689/Ubuntu/Installer/x86_64/synology-drive-client-12689.x86_64.deb"
-
+URL_INSOMNIA="https://updates.insomnia.rest/downloads/ubuntu/latest?&app=com.insomnia.app&source=website"
+URL_INSYNC="https://cdn.insynchq.com/builds/linux/insync_3.8.6.50504-lunar_amd64.deb"
+URL_VSCODE="https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
 
 ##DIRETÓRIOS E ARQUIVOS
 
@@ -66,34 +66,45 @@ travas_apt(){
 
 ## Adicionando/Confirmando arquitetura de 32 bits ##
 add_archi386(){
-sudo dpkg --add-architecture i386
+  sudo dpkg --add-architecture i386
 }
 ## Atualizando o repositório ##
 just_apt_update(){
-sudo apt update -y
+  sudo apt update -y
 }
 
 ##DEB SOFTWARES TO INSTALL
 
 PROGRAMAS_PARA_INSTALAR=(
-  snapd
-  winff
-  virtualbox
-  ratbagd
-  gparted
-  timeshift
-  gufw
-  synaptic
-  solaar
-  vlc
+  apt-transport-https
+  build-essential
   code
-  gnome-sushi 
+  curl
   folder-color
+  fonts-firacode
   git
-  wget
+  gnome-sushi
+  gparted
+  gufw
+  lutris
+  neofetch
+  ratbagd
+  ripgrep
+  snapd
+  solaar
+  steam-devices
+  steam-installer
+  synaptic
+  tilix
+  timeshift
   ubuntu-restricted-extras
   v4l2loopback-utils
- 
+  virtualbox
+  vlc
+  wget
+  winff
+  zsh
+
 )
 
 # ---------------------------------------------------------------------- #
@@ -108,7 +119,10 @@ mkdir "$DIRETORIO_DOWNLOADS"
 wget -c "$URL_GOOGLE_CHROME"       -P "$DIRETORIO_DOWNLOADS"
 wget -c "$URL_4K_VIDEO_DOWNLOADER" -P "$DIRETORIO_DOWNLOADS"
 wget -c "$URL_INSYNC"              -P "$DIRETORIO_DOWNLOADS"
+wget -c "$URL_INSOMNIA"            -P "$DIRETORIO_DOWNLOADS"
+wget -c "$URL_VSCODE"              -P "$DIRETORIO_DOWNLOADS"
 wget -c "$URL_SYNOLOGY_DRIVE"      -P "$DIRETORIO_DOWNLOADS"
+
 
 ## Instalando pacotes .deb baixados na sessão anterior ##
 echo -e "${VERDE}[INFO] - Instalando pacotes .deb baixados${SEM_COR}"
@@ -131,28 +145,25 @@ install_flatpaks(){
 
   echo -e "${VERDE}[INFO] - Instalando pacotes flatpak${SEM_COR}"
 
-flatpak install flathub com.obsproject.Studio -y
-flatpak install flathub org.gimp.GIMP -y
-flatpak install flathub com.spotify.Client -y
-flatpak install flathub com.bitwarden.desktop -y
-flatpak install flathub org.telegram.desktop -y
-flatpak install flathub org.freedesktop.Piper -y
-flatpak install flathub org.chromium.Chromium -y
-flatpak install flathub org.gnome.Boxes -y
-flatpak install flathub org.onlyoffice.desktopeditors -y
-flatpak install flathub org.qbittorrent.qBittorrent -y
-flatpak install flathub org.flameshot.Flameshot -y
-flatpak install flathub org.electrum.electrum -y
+  flatpak install flathub com.bitwarden.desktop -y
+  flatpak install flathub com.brave.Browser -y
+  flatpak install flathub com.discordapp.Discord -y
+  flatpak install flathub com.obsproject.Studio -y
+  flatpak install flathub org.chromium.Chromium -y
+  flatpak install flathub org.electrum.electrum -y
+  flatpak install flathub org.flameshot.Flameshot -y
+  flatpak install flathub org.freedesktop.Piper -y
+  flatpak install flathub org.gimp.GIMP -y
+  flatpak install flathub org.gnome.Boxes -y
+  flatpak install flathub org.qbittorrent.qBittorrent -y
+  flatpak install flathub org.telegram.desktop -y
 }
 
 ## Instalando pacotes Snap ##
 
 install_snaps(){
-
-echo -e "${VERDE}[INFO] - Instalando pacotes snap${SEM_COR}"
-
-sudo snap install authy
-
+  echo -e "${VERDE}[INFO] - Instalando pacotes snap${SEM_COR}"
+  sudo snap install authy
 }
 
 
@@ -163,12 +174,11 @@ sudo snap install authy
 ## Finalização, atualização e limpeza##
 
 system_clean(){
-
-apt_update -y
-flatpak update -y
-sudo apt autoclean -y
-sudo apt autoremove -y
-nautilus -q
+  apt_update -y
+  flatpak update -y
+  sudo apt autoclean -y
+  sudo apt autoremove -y
+  nautilus -q
 }
 
 
@@ -177,27 +187,25 @@ nautilus -q
 
 #Cria pastas para produtividade no nautilus
 extra_config(){
+  mkdir /home/$USER/TEMP
+  mkdir /home/$USER/EDITAR 
+  mkdir /home/$USER/Resolve
+  mkdir /home/$USER/AppImage
+  mkdir /home/$USER/Vídeos/'OBS Rec'
 
+  #Adiciona atalhos ao Nautilus
 
-mkdir /home/$USER/TEMP
-mkdir /home/$USER/EDITAR 
-mkdir /home/$USER/Resolve
-mkdir /home/$USER/AppImage
-mkdir /home/$USER/Vídeos/'OBS Rec'
+  if test -f "$FILE"; then
+      echo "$FILE já existe"
+  else
+      echo "$FILE não existe, criando..."
+      touch /home/$USER/.config/gkt-3.0/bookmarks
+  fi
 
-#Adiciona atalhos ao Nautilus
-
-if test -f "$FILE"; then
-    echo "$FILE já existe"
-else
-    echo "$FILE não existe, criando..."
-    touch /home/$USER/.config/gkt-3.0/bookmarks
-fi
-
-echo "file:///home/$USER/EDITAR 🔵 EDITAR" >> $FILE
-echo "file:///home/$USER/AppImage" >> $FILE
-echo "file:///home/$USER/Resolve 🔴 Resolve" >> $FILE
-echo "file:///home/$USER/TEMP 🕖 TEMP" >> $FILE
+  echo "file:///home/$USER/EDITAR 🔵 EDITAR" >> $FILE
+  echo "file:///home/$USER/AppImage" >> $FILE
+  echo "file:///home/$USER/Resolve 🔴 Resolve" >> $FILE
+  echo "file:///home/$USER/TEMP 🕖 TEMP" >> $FILE
 }
 
 # -------------------------------------------------------------------------------- #
@@ -219,4 +227,4 @@ system_clean
 
 ## finalização
 
-  echo -e "${VERDE}[INFO] - Script finalizado, instalação concluída! :)${SEM_COR}"
+echo -e "${VERDE}[INFO] - Script finalizado, instalação concluída! :)${SEM_COR}"
