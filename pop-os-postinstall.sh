@@ -41,7 +41,8 @@ SEM_COR='\e[0m'
 
 # Atualizando repositório e fazendo atualização do sistema
 
-apt_update(){
+apt_update()
+{
   sudo apt update && sudo apt dist-upgrade -y
 }
 
@@ -49,7 +50,8 @@ apt_update(){
 # -------------------------------TESTES E REQUISITOS----------------------------------------- #
 
 # Internet conectando?
-testes_internet(){
+testes_internet()
+{
   if ! ping -c 1 8.8.8.8 -q &> /dev/null; then
     echo -e "${VERMELHO}[ERROR] - Seu computador não tem conexão com a Internet. Verifique a rede.${SEM_COR}"
     exit 1
@@ -60,8 +62,8 @@ testes_internet(){
 
 # ------------------------------------------------------------------------------ #
 
-
-remover_ipv6(){
+remover_ipv6()
+{
 ## Removendo IPV6
   sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1
   sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1
@@ -69,17 +71,21 @@ remover_ipv6(){
 }
 
 ## Removendo travas eventuais do apt ##
-travas_apt(){
+travas_apt()
+{
   sudo rm /var/lib/dpkg/lock-frontend
   sudo rm /var/cache/apt/archives/lock
 }
 
 ## Adicionando/Confirmando arquitetura de 32 bits ##
-add_archi386(){
+add_archi386()
+{
   sudo dpkg --add-architecture i386
 }
+
 ## Atualizando o repositório ##
-just_apt_update(){
+just_apt_update()
+{
   sudo apt update -y
 }
 
@@ -93,7 +99,6 @@ just_apt_update(){
 PROGRAMAS_PARA_INSTALAR=(
   apt-transport-https
   build-essential
-  code
   cpu-x
   curl
   folder-color
@@ -116,6 +121,7 @@ PROGRAMAS_PARA_INSTALAR=(
   steam-devices
   steam-installer
   synaptic
+  terminator
   tilix
   timeshift
   ubuntu-restricted-extras
@@ -131,39 +137,42 @@ PROGRAMAS_PARA_INSTALAR=(
 # ---------------------------------------------------------------------- #
 
 ## Download e instalaçao de programas externos ##
+install_debs()
+{
 
-install_debs(){
+  echo -e "${VERDE}[INFO] - Baixando pacotes .deb${SEM_COR}"
 
-echo -e "${VERDE}[INFO] - Baixando pacotes .deb${SEM_COR}"
+  mkdir "$DIRETORIO_DOWNLOADS"
+  #wget -c "$URL_NALA"                -P "$DIRETORIO_DOWNLOADS" -O "nala.deb"
+  #wget -c "$URL_GOOGLE_CHROME"       -P "$DIRETORIO_DOWNLOADS" -O "chrome.deb"
+  #wget -c "$URL_4K_VIDEO_DOWNLOADER" -P "$DIRETORIO_DOWNLOADS" -O "4kvideo.deb"
+  wget -c "$URL_INSYNC"              -P "$DIRETORIO_DOWNLOADS" -O "insync.deb"
+  wget -c "$URL_INSOMNIA"            -P "$DIRETORIO_DOWNLOADS" -O "insomnia.deb"
+  #wget -c "$URL_VSCODE"              -P "$DIRETORIO_DOWNLOADS" -O "vscode.deb"
 
-mkdir "$DIRETORIO_DOWNLOADS"
-wget -c "$URL_NALA"                -P "$DIRETORIO_DOWNLOADS"
-wget -c "$URL_GOOGLE_CHROME"       -P "$DIRETORIO_DOWNLOADS"
-wget -c "$URL_4K_VIDEO_DOWNLOADER" -P "$DIRETORIO_DOWNLOADS"
-wget -c "$URL_INSYNC"              -P "$DIRETORIO_DOWNLOADS"
-wget -c "$URL_INSOMNIA"            -P "$DIRETORIO_DOWNLOADS"
-wget -c "$URL_VSCODE"              -P "$DIRETORIO_DOWNLOADS"
-wget -c "$URL_SYNOLOGY_DRIVE"      -P "$DIRETORIO_DOWNLOADS"
+  ## Instalando pacotes .deb baixados na sessão anterior ##
+  echo -e "${VERDE}[INFO] - Instalando pacotes .deb baixados${SEM_COR}"
+  sudo dpkg -i $DIRETORIO_DOWNLOADS/*.deb
 
+  # Instalar programas no apt
+  echo -e "${VERDE}[INFO] - Instalando pacotes apt do repositório${SEM_COR}"
 
-## Instalando pacotes .deb baixados na sessão anterior ##
-echo -e "${VERDE}[INFO] - Instalando pacotes .deb baixados${SEM_COR}"
-sudo dpkg -i $DIRETORIO_DOWNLOADS/*.deb
-
-# Instalar programas no apt
-echo -e "${VERDE}[INFO] - Instalando pacotes apt do repositório${SEM_COR}"
-
-for nome_do_programa in ${PROGRAMAS_PARA_INSTALAR[@]}; do
-  if ! dpkg -l | grep -q $nome_do_programa; then # Só instala se já não estiver instalado
-    sudo apt install "$nome_do_programa" -y
-  else
-    echo "[INSTALADO] - $nome_do_programa"
-  fi
-done
+  for nome_do_programa in ${PROGRAMAS_PARA_INSTALAR[@]}; do
+    if ! dpkg -l | grep -q $nome_do_programa; then # Só instala se já não estiver instalado
+      echo "============================================================================"
+      echo "[INSTALANDO] - $nome_do_programa"
+      echo "============================================================================"
+      sudo apt install "$nome_do_programa" -y
+    else
+      echo "[INSTALADO] - $nome_do_programa"
+    fi
+  done
 
 }
+
 ## Instalando pacotes Flatpak ##
-install_flatpaks(){
+install_flatpaks()
+{
 
   echo -e "${VERDE}[INFO] - Instalando pacotes flatpak${SEM_COR}"
 
@@ -183,8 +192,8 @@ install_flatpaks(){
 }
 
 ## Instalando pacotes Snap ##
-
-install_snaps(){
+install_snaps()
+{
   echo -e "${VERDE}[INFO] - Instalando pacotes snap${SEM_COR}"
   sudo snap install authy
 }
@@ -195,8 +204,8 @@ install_snaps(){
 
 
 ## Finalização, atualização e limpeza##
-
-system_clean(){
+system_clean()
+{
   apt_update -y
   flatpak update -y
   sudo apt autoclean -y
@@ -209,10 +218,11 @@ system_clean(){
 # ----------------------------- CONFIGS EXTRAS ----------------------------- #
 
 #Cria pastas para produtividade no nautilus
-extra_config(){
+extra_config()
+{
   mkdir /home/$USER/TEMP
-  mkdir /home/$USER/EDITAR 
-  mkdir /home/$USER/Resolve
+  #mkdir /home/$USER/EDITAR 
+  #mkdir /home/$USER/Resolve
   mkdir /home/$USER/AppImage
   mkdir /home/$USER/Vídeos/'OBS Rec'
 
@@ -225,10 +235,21 @@ extra_config(){
       touch /home/$USER/.config/gkt-3.0/bookmarks
   fi
 
-  echo "file:///home/$USER/EDITAR 🔵 EDITAR" >> $FILE
+  #echo "file:///home/$USER/EDITAR 🔵 EDITAR" >> $FILE
   echo "file:///home/$USER/AppImage" >> $FILE
-  echo "file:///home/$USER/Resolve 🔴 Resolve" >> $FILE
+  #echo "file:///home/$USER/Resolve 🔴 Resolve" >> $FILE
   echo "file:///home/$USER/TEMP 🕖 TEMP" >> $FILE
+}
+
+ohmyzsh()
+{
+  #https://ohmyz.sh/#install
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  
+  #https://ruanklein.com/posts/instalando-oh-my-zsh-com-zinit/
+  sh -c "$(curl -fsSL https://git.io/zinit-install)"
+  zinit light zsh-users/zsh-autosuggestions
+  zinit light zdharma-continuum/fast-syntax-highlighting
 }
 
 # -------------------------------------------------------------------------------- #
