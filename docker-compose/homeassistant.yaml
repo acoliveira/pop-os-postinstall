@@ -1,0 +1,18 @@
+---
+version: "2.1"
+services:
+  homeassistant:
+    image: lscr.io/linuxserver/homeassistant:latest
+    container_name: homeassistant
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=100
+      - TZ=America/Sao_Paulo
+    volumes:
+      - /DISCO_DOCKER/appdata/homeassistant:/config
+    ports:
+      - 8123:8123 #optional
+    devices:
+      #- /path/to/device:/path/to/device #optional For passing through USB, serial or gpio devices.
+    restart: unless-stopped
