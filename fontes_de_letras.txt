@@ -1,0 +1,2 @@
+unzip fonts.zip -d ~/.local/share
+fonte fonts-firacode

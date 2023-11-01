@@ -15,6 +15,26 @@ set -e
 
 ##URLS
 
+#https://www.pling.com/p/2033080/
+#https://www.youtube.com/watch?v=AnNx-Se9wkc&t=356s
+
+#install conky-all jq moc lua5.3 build-essential libreadline-dev
+
+#sudo nano /etc/environment >> MUFFIN_NO_SHADOWS=1
+
+#Glava
+#Correção do Glava
+# https://www.youtube.com/watch?v=gol4iFL99go
+# https://github.com/jarcode-foss/glava/pull/185/commits/a2d494319c824e676399df1d3c250baf4da87b83
+# https://gitlab.com/wild-turtles-publicly-release/glava/glava.git
+
+#sudo nala install libgl1-mesa-dev libpulse0 libpulse-dev libxext6 libxext-dev libxrender-dev libxcomposite-dev liblua5.3-dev lua-filesystem libobs0 libobs-dev meson build-essential gcc
+#sudo ldconfig
+#https://github.com/jarcode-foss/glava
+#sudo apt-get install libgl1-mesa-dev libpulse0 libpulse-dev libxext6 libxext-dev libxrender-dev libxcomposite-dev liblua5.3-dev liblua5.3 lua-lgi lua-filesystem libobs0 libobs-dev meson build-essential gcc 
+
+
+
 URL_WINE_KEY="https://dl.winehq.org/wine-builds/winehq.key"
 URL_PPA_WINE="https://dl.winehq.org/wine-builds/ubuntu/"
 URL_4K_VIDEO_DOWNLOADER="https://dl.4kdownload.com/app/4kvideodownloader_4.24.3-1_amd64.deb?source=website"
