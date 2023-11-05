@@ -1,4 +1,15 @@
+sudo wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key
+sudo wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/jammy/winehq-jammy.sources
+
+sudo nala update
+sudo nala install --install-recommends winehq-stable
+
+sudo nala install playonlinux
+
+*** OU ***
+
 https://ailtonbsj.github.io/running-windows-apps-on-linux-with-wine
+
 
 Running Windows Apps on Lubuntu 20.04 with Wine
 Oct 20, 2019
