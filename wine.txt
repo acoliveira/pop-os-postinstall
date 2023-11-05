@@ -8,6 +8,8 @@ sudo nala install playonlinux
 
 *** OU ***
 
+https://www.youtube.com/watch?v=HZXN8sQiEYc
+
 https://ailtonbsj.github.io/running-windows-apps-on-linux-with-wine
 
 
