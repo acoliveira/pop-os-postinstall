@@ -20,15 +20,15 @@ Installing Wine
 Let’s start applying a i386 architecture in our x64 system.
 
 sudo dpkg --add-architecture i386
-sudo apt update
+sudo nala update
 Now let’s installing the necessaries packages of wine.
 
-sudo apt install --install-recommends wine64
-sudo apt install --install-recommends winetricks
-sudo apt install --install-recommends wine-binfmt
-sudo apt install --install-recommends winbind
-sudo apt install --install-recommends mono-complete
-sudo apt install fonts-wine
+sudo nala install --install-recommends wine64
+sudo nala install --install-recommends winetricks
+sudo nala install --install-recommends wine-binfmt
+sudo nala install --install-recommends winbind
+sudo nala install --install-recommends mono-complete
+sudo nala install fonts-wine
 Now we will to create a Wine Prefix.
 
 wineboot -u
