@@ -1,0 +1,12 @@
+https://linuxdicasesuporte.blogspot.com/2019/11/visualizador-de-espectro-de-audio-glava.html
+https://www.linuxuprising.com/2018/11/embed-audio-visualizer-on-your-linux.html
+https://github.com/jarcode-foss/glava
+
+https://github.com/jarcode-foss/glava/pull/185
+
+sudo apt install ninja-build 
+
+python3-full e python3-pip na loja de app
+
+sudo apt install libgl1-mesa-dev libpulse0 libpulse-dev libxext6 libxext-dev libxrender-dev libxcomposite-dev liblua5.3-dev liblua5.3-0 lua-lgi lua-filesystem libobs0 libobs-dev meson build-essential gcc
+

@@ -1,0 +1,11 @@
+# Themes
+https://www.gnome-look.org/p/1489508
+
+# Install
+# Add the repository
+curl -fsSL https://zquestz.github.io/ppa/ubuntu/KEY.gpg | sudo gpg --dearmor -o /usr/share/keyrings/zquestz-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/zquestz-archive-keyring.gpg] https://zquestz.github.io/ppa/ubuntu ./" | sudo tee /etc/apt/sources.list.d/zquestz.list
+sudo apt update
+
+# Install Plank Reloaded
+sudo apt install plank-reloaded

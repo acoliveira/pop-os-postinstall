@@ -16,24 +16,55 @@ URL_INSYNC="https://d2t3ff60b2tol4.cloudfront.net/builds/insync_3.0.20.40428-bio
 
 DIRETORIO_DOWNLOADS="$HOME/Downloads/programas"
 
-## notepadqq
-## stacer
-## gnuradio
-
 PROGRAMAS_PARA_INSTALAR=(
-  nala
-  cpu-x
+  apt-transport-https
+  build-essential
   conky
   conky-all
-  neofetch
-  hardinfo
+  cpu-x
+  curl
+  dotnet-sdk-7
+  flameshot
+  folder-color
+  fonts-firacode
+  git
+  gnome-sushi
+  gparted
+  gufw
   google-chrome-stable
+  hardinfo
+  jq
+  lutris
+  lm-sensors
+  libpulse-dev
+  nala
+  neofetch
+  ninja-build
+  meson
+  moc
+  notepadqq
+  plank-reloaded
+  playonlinux
+  ratbagd
+  ripgrep
+  snapd
+  solaar
   speedtest
+  stacer
+  steam-devices
+  steam-installer
+  synaptic
+  terminator
+  tilix
+  timeshift
+  ubuntu-restricted-extras
+  v4l2loopback-utils
+  virtualbox
+  vlc
+  wget
   winff
   wine
-  vlc
-  virtualbox
-  flameshot
+  zsh
 )
 
 # ---------------------------------------------------------------------- #
@@ -47,17 +78,17 @@ PROGRAMAS_PARA_INSTALAR=(
 #sudo dpkg --add-architecture i386
 
 ## Removendo IPV6
-sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1
-sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1
-sudo sysctl -w net.ipv6.conf.lo.disable_ipv6=1
+#sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1
+#sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1
+#sudo sysctl -w net.ipv6.conf.lo.disable_ipv6=1
 
 ## Atualizando o repositório ##
 sudo apt update -y
 
 ## Adicionando repositórios de terceiros e suporte a Snap (Driver Logitech, Lutris e Drivers Nvidia)##
-wget -nc "$URL_WINE_KEY"
-sudo apt-key add winehq.key
-sudo apt-add-repository "deb $URL_PPA_WINE bionic main"
+#wget -nc "$URL_WINE_KEY"
+#sudo apt-key add winehq.key
+#sudo apt-add-repository "deb $URL_PPA_WINE bionic main"
 # ---------------------------------------------------------------------- #
 
 # ----------------------------- EXECUÇÃO ----------------------------- #
@@ -66,7 +97,7 @@ sudo apt update -y
 
 ## Download e instalaçao de programas externos ##
 mkdir "$DIRETORIO_DOWNLOADS"
-wget -c "$URL_GOOGLE_CHROME"       -P "$DIRETORIO_DOWNLOADS"
+#wget -c "$URL_GOOGLE_CHROME"       -P "$DIRETORIO_DOWNLOADS"
 wget -c "$URL_SIMPLE_NOTE"         -P "$DIRETORIO_DOWNLOADS"
 wget -c "$URL_4K_VIDEO_DOWNLOADER" -P "$DIRETORIO_DOWNLOADS"
 wget -c "$URL_INSYNC"              -P "$DIRETORIO_DOWNLOADS"
@@ -89,10 +120,10 @@ sudo apt install --install-recommends winehq-stable wine-stable wine-stable-i386
 flatpak install flathub com.obsproject.Studio -y
 
 ## Instalando pacotes Snap ##
-sudo snap install spotify
-sudo snap install slack --classic
-sudo snap install skype --classic
-sudo snap install photogimp
+#sudo snap install spotify
+#sudo snap install slack --classic
+#sudo snap install skype --classic
+#sudo snap install photogimp
 # ---------------------------------------------------------------------- #
 
 # ----------------------------- PÓS-INSTALAÇÃO ----------------------------- #
