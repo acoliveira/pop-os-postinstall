@@ -14,6 +14,8 @@ URL_INSYNC="https://d2t3ff60b2tol4.cloudfront.net/builds/insync_3.0.20.40428-bio
 #curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | sudo bash
 #sudo nala install speedtest
 
+#sudo npm i @tuyapi/cli -g
+
 DIRETORIO_DOWNLOADS="$HOME/Downloads/programas"
 
 PROGRAMAS_PARA_INSTALAR=(
@@ -42,6 +44,8 @@ PROGRAMAS_PARA_INSTALAR=(
   ninja-build
   meson
   moc
+  nodejs
+  npm
   notepadqq
   plank-reloaded
   playonlinux
