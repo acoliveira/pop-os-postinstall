@@ -16,16 +16,21 @@ URL_INSYNC="https://d2t3ff60b2tol4.cloudfront.net/builds/insync_3.0.20.40428-bio
 
 #sudo npm i @tuyapi/cli -g
 
+# ver atuin https://atuin.sh/
+
+
 DIRETORIO_DOWNLOADS="$HOME/Downloads/programas"
 
 PROGRAMAS_PARA_INSTALAR=(
   apt-transport-https
   build-essential
+  cheese
   conky
   conky-all
   cpu-x
   curl
   dotnet-sdk-7
+  eza
   flameshot
   folder-color
   fonts-firacode
