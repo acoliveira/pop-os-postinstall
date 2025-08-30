@@ -1,0 +1,3 @@
+//192.168.10.7/video /media/videos_nas cifs rw,guest,vers=3.0,uid=1000,gid=1000 0 0
+//192.168.10.7/series /media/series_nas cifs rw,guest,vers=3.0,uid=1000,gid=1000 0 0
+//192.168.10.7/downloads /media/downloads cifs rw,guest,vers=3.0,uid=1000,gid=1000 0 0

@@ -1,0 +1,1 @@
+for f in log[1-9].log; do cat $f; echo ""; done
